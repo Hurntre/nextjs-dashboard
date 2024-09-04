@@ -4,14 +4,20 @@ FROM node:21-slim
 # Create app directory
 WORKDIR /workspace/nextjs-dashboard/app
 
-# Copy app files
-COPY . .
+# copy package.json 
+COPY package.json ./
+
+# copy package.json 
+COPY pnpm-lock.yaml ./
 
 # Install performance package manager
 RUN npm install -g pnpm
 
 # Install dependencies
 RUN pnpm install
+
+# Bundle app source
+COPY . .
 
 # define dev app env, not recommended for production
 ENV POSTGRES_URL=postgres://default:6uiMGW5PFJyc@ep-holy-bonus-a4efjufj-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require
